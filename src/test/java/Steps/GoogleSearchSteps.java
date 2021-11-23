@@ -1,28 +1,16 @@
 package Steps;
 
 import io.cucumber.java.en.*;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.openqa.selenium.chrome.ChromeDriver;
 
-import java.time.Duration;
-
-public class GoogleSearchSteps {
-
-    ChromeDriver driver=new ChromeDriver();
+public class GoogleSearchSteps extends BaseSteps {
 
     @Given("un navegador web se abre en la página de Google")
     public void un_navegador_web_se_abre_en_la_página_de_google() {
 
         System.out.println("Paso 001 - Un navegador web en la página de Google");
 
-        WebDriverManager.chromedriver().setup();
-
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-        driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-
-        driver.manage().window().maximize();
         driver.navigate().to("https://www.google.com/?hl=es");
     }
     @When("se introduce la palabra de búsqueda {string}")
@@ -49,8 +37,6 @@ public class GoogleSearchSteps {
         System.out.println("Paso 005 - Los resultados relacionados");
 
         driver.getPageSource().contains(string);
-
-        driver.manage().deleteAllCookies();
         driver.close();
         driver.quit();
     }

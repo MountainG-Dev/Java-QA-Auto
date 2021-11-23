@@ -1,60 +1,53 @@
 package Steps;
 
-import Util.LeerProperty;
-import io.cucumber.java.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
+import io.cucumber.java.*;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
+import Util.driver.manager.*;
+import static Util.LeerProperty.*;
 
+import java.io.FileNotFoundException;
 import java.time.Duration;
 
-public class Hooks {
-
-  /*  @Before
-    public static void  iniciar() throws Exception {
-
-        String browser = LeerProperty.leerProperties().getProperty("navegador").toLowerCase();
-        if (browser.equals("firefox")){
-            WebDriverManager.firefoxdriver().setup();
-            FirefoxDriver driver=new FirefoxDriver();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-            driver.manage().window().maximize();
-
-            driver.get(LeerProperty.leerProperties().getProperty("url"));
-        }else if (browser.equals("chrome")){
-            WebDriverManager.chromedriver().setup();
-            ChromeDriver driver=new ChromeDriver();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-            driver.manage().window().maximize();
-
-            driver.get(LeerProperty.leerProperties().getProperty("url"));
-        }else if (browser.equals("edge")){
-            WebDriverManager.edgedriver().setup();
-            EdgeDriver driver=new EdgeDriver();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-            driver.manage().window().maximize();
-
-            driver.get(LeerProperty.leerProperties().getProperty("url"));
-        }else{
-            System.out.println("Navegador Incorrecto");
-        }
-    }*/
+public class Hooks{
 
     private static WebDriver driver;
+    private driverManager driverManager;
 
-    @After
+    public static WebDriver getDriver(){
+        return driver;
+    }
+
+    @Before(order=1)
+    public void beforeScenario() throws FileNotFoundException {
+        System.out.println("Start the browser and Clear the cookies");
+
+        String navegador = leerProperties().getProperty("navegador").toLowerCase();
+        String execution = leerProperties().getProperty("execution").toLowerCase();
+
+        driverManager = driverManagerFactory.getManager(navegador, execution);
+        driver = driverManager.getDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().window().maximize();
+    }
+    @Before(order=0)
+    public void beforeScenarioStart(){
+        System.out.println("-----------------Start of Scenario-----------------");
+
+    }
+    @After(order=0)
+    public void afterScenarioFinish(){
+        System.out.println("-----------------End of Scenario-----------------");
+    }
+    @After(order=1)
+    public void afterScenario(){
+        System.out.println("Log out the user and close the browser");
+        driver.manage().deleteAllCookies();
+        driver.close();
+        driverManager.quitDriver();
+    }
+
+
+/*    @After
     public void TakeScreenShot(Scenario scenario){
 
         byte[] screenshotPass = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
@@ -64,10 +57,5 @@ public class Hooks {
             byte[] screenshotFail = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
             scenario.attach(screenshotFail, "image/png", "Fail");
         }
-
-/*        driver.manage().deleteAllCookies();
-        driver.close();
-        driver.quit();*/
-    }
-
+    }*/
 }
