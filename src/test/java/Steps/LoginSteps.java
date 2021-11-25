@@ -26,17 +26,14 @@ public class LoginSteps {
     }
     @When("se ingresa {string} en el campo usuario invalido")
     public void se_ingresa_en_el_campo_usuario_invalido(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.out.println("Paso 006 - Se ingresa user invalido en el campo usuario");
     }
-    @When("se ingresa {string} en el campo contraseña invalida")
+    @And("se ingresa {string} en el campo contraseña invalida")
     public void se_ingresa_en_el_campo_contraseña_invalida(String string) {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.out.println("Paso 007 - Se ingresa user invalido en el campo usuario");
     }
     @Then("debe aparece mensaje de contraseña incorrecta")
     public void debe_aparece_mensaje_de_contraseña_incorrecta() {
-        // Write code here that turns the phrase above into concrete actions
-        throw new io.cucumber.java.PendingException();
+        System.out.println("Paso 008 - Se ingresa user invalido en el campo usuario");
     }
 }

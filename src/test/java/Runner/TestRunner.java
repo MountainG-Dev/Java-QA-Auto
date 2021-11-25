@@ -10,8 +10,9 @@ import org.junit.runner.RunWith;
         features = "src/test/java/Features",
         glue = {"Steps"},
         monochrome = true,
-        plugin = {"json:Output-Reports/Json-Report/cucumber.json",
+        plugin = {"json:test-output/Json-Report/cucumber.json",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
 public class TestRunner {
+
 }

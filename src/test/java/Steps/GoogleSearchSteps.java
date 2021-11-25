@@ -38,7 +38,6 @@ public class GoogleSearchSteps extends BaseSteps {
 
         driver.getPageSource().contains(string);
         driver.close();
-        driver.quit();
     }
 
 }

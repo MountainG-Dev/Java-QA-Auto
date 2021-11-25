@@ -1,6 +1,6 @@
 @GoogleFeature
 Feature: Búsqueda en Google
-  como usuario web, quiero buscar en Google para poder responder mis dudas.
+
 
   @SearchTest
   Scenario Outline: Búsqueda simple en Google

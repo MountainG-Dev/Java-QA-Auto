@@ -1,15 +1,17 @@
 package Steps;
 
-import Pages.Log4j;
+import Common.GenericFunctions;
 import Util.driver.manager.driverManager;
 import Util.driver.manager.driverManagerFactory;
 import io.cucumber.java.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import static Util.LeerProperty.*;
 
-import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.time.Duration;
 
 public class Hooks{
@@ -22,10 +24,27 @@ public class Hooks{
         return driver;
     }
 
-    @Before(order=1)
-    public void beforeScenario() throws FileNotFoundException {
+    @AfterStep
+    public void as (Scenario scenario) throws IOException {
+        byte[] screenshotonPass = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshotonPass, "image/png", "Pass");
 
-        logger.info("Start the browser and Clear the cookies");
+        if (scenario.isFailed()){
+            byte[] screenshotFail = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshotonPass, "image/png", "Failed");
+        }
+    }
+
+    @Before(order=0)
+    public void beforeScenarioStart(){
+
+        System.out.println("-----------------Start of Scenario-----------------");
+    }
+
+    @Before(order=1)
+    public void beforeScenario() throws Exception {
+
+        System.out.println("Start the browser and Clear the cookies");
 
         String navegador = leerProperties().getProperty("navegador").toLowerCase();
         String execution = leerProperties().getProperty("execution").toLowerCase();
@@ -37,36 +56,17 @@ public class Hooks{
         driver.manage().deleteAllCookies();
     }
 
-    @Before(order=0)
-    public void beforeScenarioStart(){
+    @After(order=1)
+    public void afterScenario(){
 
-        logger.info("-----------------Start of Scenario-----------------");
-
+        System.out.println("Log out the user and close the browser");
+        driver.quit();
     }
 
     @After(order=0)
     public void afterScenarioFinish(){
 
-        logger.info("-----------------End of Scenario-----------------");
+        System.out.println("-----------------End of Scenario-----------------");
     }
 
-    @After(order=1)
-    public void afterScenario(){
-
-        logger.info("Log out the user and close the browser");
-        driver.quit();
-    }
-
-
-/*    @After
-    public void TakeScreenShot(Scenario scenario){
-
-        byte[] screenshotPass = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshotPass, "image/png", "Pass");
-
-        if (scenario.isFailed()){
-            byte[] screenshotFail = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshotFail, "image/png", "Fail");
-        }
-    }*/
 }
