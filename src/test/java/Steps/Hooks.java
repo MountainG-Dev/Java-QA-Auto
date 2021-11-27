@@ -1,17 +1,15 @@
 package Steps;
 
-import Common.GenericFunctions;
 import Util.driver.manager.driverManager;
 import Util.driver.manager.driverManagerFactory;
 import io.cucumber.java.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import static Util.LeerProperty.*;
-
-import java.io.IOException;
 import java.time.Duration;
 
 public class Hooks{
@@ -25,13 +23,13 @@ public class Hooks{
     }
 
     @AfterStep
-    public void as (Scenario scenario) throws IOException {
+    public void take(Scenario scenario){
         byte[] screenshotonPass = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
         scenario.attach(screenshotonPass, "image/png", "Pass");
 
         if (scenario.isFailed()){
             byte[] screenshotFail = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshotonPass, "image/png", "Failed");
+            scenario.attach(screenshotFail, "image/png", "Failed");
         }
     }
 
@@ -68,5 +66,7 @@ public class Hooks{
 
         System.out.println("-----------------End of Scenario-----------------");
     }
+
+
 
 }

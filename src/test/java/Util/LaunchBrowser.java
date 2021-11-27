@@ -11,7 +11,7 @@ public class LaunchBrowser {
     public static void main(String[] args) {
 
         //Chrome Browser
-        //System.setProperty("webdriver.chrome.driver", "./src/test/resources/Drivers/chromedriver.exe");
+        //System.setProperty("webdriver.chrome.driver", "./src/test/resources/Drivers/chromedriverOld.exe");
         //WebDriver driver=new ChromeDriver();    //ChromeDriver driver=new ChromeDriver();
 
         //Firefox Browser
