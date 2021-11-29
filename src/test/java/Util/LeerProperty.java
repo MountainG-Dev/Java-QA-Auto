@@ -14,6 +14,7 @@ public class LeerProperty {
         try {
             prop = new Properties();
             FileInputStream ip = new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/config.properties");
+            prop.load(ip);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

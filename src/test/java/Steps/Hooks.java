@@ -1,73 +1,73 @@
 package Steps;
 
-import Util.LeerProperty;
-import io.cucumber.java.Scenario;
-import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.After;
-import org.junit.Before;
+import Util.driver.manager.driverManager;
+import Util.driver.manager.driverManagerFactory;
+import io.cucumber.java.*;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-
+import static Util.LeerProperty.*;
 import java.time.Duration;
 
-public class Hooks {
-
-  /*  @Before
-    public static void  iniciar() throws Exception {
-
-        String browser = LeerProperty.leerProperties().getProperty("navegador").toLowerCase();
-        if (browser.equals("firefox")){
-            WebDriverManager.firefoxdriver().setup();
-            FirefoxDriver driver=new FirefoxDriver();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-            driver.manage().window().maximize();
-
-            driver.get(LeerProperty.leerProperties().getProperty("url"));
-        }else if (browser.equals("chrome")){
-            WebDriverManager.chromedriver().setup();
-            ChromeDriver driver=new ChromeDriver();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-            driver.manage().window().maximize();
-
-            driver.get(LeerProperty.leerProperties().getProperty("url"));
-        }else if (browser.equals("edge")){
-            WebDriverManager.edgedriver().setup();
-            EdgeDriver driver=new EdgeDriver();
-
-            driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(40));
-            driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(40));
-            driver.manage().window().maximize();
-
-            driver.get(LeerProperty.leerProperties().getProperty("url"));
-        }else{
-            System.out.println("Navegador Incorrecto");
-        }
-    }*/
+public class Hooks{
 
     private static WebDriver driver;
+    private driverManager driverManager;
+    private static Logger logger = LogManager.getLogger(Hooks.class);
 
-    @After
-    public void TakeScreenShot(Scenario scenario){
+    public static WebDriver getDriver(){
+        return driver;
+    }
 
-        byte[] screenshotPass = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-        scenario.attach(screenshotPass, "image/png", "Pass");
+    @AfterStep
+    public void take(Scenario scenario){
+        byte[] screenshotonPass = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+        scenario.attach(screenshotonPass, "image/png", "Pass");
 
         if (scenario.isFailed()){
-            byte[] screenshotFail = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            scenario.attach(screenshotFail, "image/png", "Fail");
+            byte[] screenshotFail = ((TakesScreenshot)driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshotFail, "image/png", "Failed");
         }
-
-/*        driver.manage().deleteAllCookies();
-        driver.close();
-        driver.quit();*/
     }
+
+    @Before(order=0)
+    public void beforeScenarioStart(){
+
+        System.out.println("-----------------Start of Scenario-----------------");
+    }
+
+    @Before(order=1)
+    public void beforeScenario() throws Exception {
+
+        System.out.println("Start the browser and Clear the cookies");
+
+        String navegador = leerProperties().getProperty("navegador").toLowerCase();
+        String execution = leerProperties().getProperty("execution").toLowerCase();
+
+        driverManager = driverManagerFactory.getManager(navegador, execution);
+        driver = driverManager.getDriver();
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
+        driver.manage().window().maximize();
+        driver.manage().deleteAllCookies();
+    }
+
+    @After(order=1)
+    public void afterScenario(){
+
+        System.out.println("Log out the user and close the browser");
+        driver.close();
+    }
+
+    @After(order=0)
+    public void afterScenarioFinish(){
+
+        System.out.println("-----------------End of Scenario-----------------");
+        driver.quit();
+    }
+
+
 
 }
