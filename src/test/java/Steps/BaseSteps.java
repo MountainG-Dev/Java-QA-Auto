@@ -1,5 +1,6 @@
 package Steps;
 
+import Util.Screenshot;
 import org.openqa.selenium.WebDriver;
 
 public class BaseSteps {

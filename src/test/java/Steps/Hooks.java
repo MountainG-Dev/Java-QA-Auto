@@ -58,13 +58,14 @@ public class Hooks{
     public void afterScenario(){
 
         System.out.println("Log out the user and close the browser");
-        driver.quit();
+        driver.close();
     }
 
     @After(order=0)
     public void afterScenarioFinish(){
 
         System.out.println("-----------------End of Scenario-----------------");
+        driver.quit();
     }
 
 
