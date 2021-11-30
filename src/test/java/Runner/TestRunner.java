@@ -1,7 +1,9 @@
 package Runner;
 
+import Pages.BasePage;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
+import org.junit.AfterClass;
 import org.junit.runner.RunWith;
 
 
@@ -14,5 +16,8 @@ import org.junit.runner.RunWith;
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
 public class TestRunner {
-
+    @AfterClass
+    public static void cleanDriver(){
+        BasePage.closeDriver();
+    }
 }

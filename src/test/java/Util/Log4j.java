@@ -10,8 +10,6 @@ public class Log4j {
 
     public static void main(String[] args){
 
-        PropertyConfigurator.configure("src/test/resources/log4j.properties");
-
         System.out.println("\n Hello World...!   \n");
 
         logger.info("This is information message.");
