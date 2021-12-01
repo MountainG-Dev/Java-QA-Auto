@@ -2,4 +2,5 @@
 /shelf/
 /workspace.xml
 /test-output/
-/Drivers/
+/Drivers/main/resources/Drivers/
+/target/
