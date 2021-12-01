@@ -27,8 +27,9 @@ public class BasePage {
         chromeOptions.addArguments("--incognito");
         driver  = new ChromeDriver(chromeOptions);
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
     }
-    /* Método que espera la instancia del WebDriver */
+    /* Constructor de clase que espera la instancia del WebDriver */
     public BasePage(WebDriver driver){
         BasePage.driver = driver;
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
@@ -41,13 +42,10 @@ public class BasePage {
     public static void closeDriver(){
         driver.quit();
     }
-    public static void openBrowser(){
+    /* Método para abrir nueva ventana */
+    public static void openWindow(){
         driver.switchTo().newWindow(WindowType.WINDOW);
     }
-    public static void closeBrowser(){
-        driver.close();
-    }
-
     /* Método para obtener WebElement */
     private WebElement Find(String locator){
         return wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));

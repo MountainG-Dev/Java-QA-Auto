@@ -2,9 +2,9 @@ package DriveManager;
 
 public class driverManagerFactory {
 
-    public static DriverManager getManager (String browser, String execution){
+    public static driverManager getManager (String browser, String execution){
 
-        DriverManager driverManager = null;
+        driverManager driverManager = null;
 
         switch (execution){
             case "local":

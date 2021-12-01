@@ -4,6 +4,11 @@ import Pages.BasePage;
 import io.cucumber.java.*;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class Hooks extends BasePage{
 
@@ -22,16 +27,19 @@ public class Hooks extends BasePage{
         }
     }
 
+
     @Before(order=0)
     public void beforeScenarioStart(){
 
         System.out.println("-----------------Start of Scenario-----------------");
+
     }
 
     @Before(order=1)
     public void beforeScenario(){
 
         System.out.println("Start the browser and Clear the cookies");
+
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
     }
@@ -46,5 +54,6 @@ public class Hooks extends BasePage{
     public void afterScenarioFinish(){
 
         System.out.println("-----------------End of Scenario-----------------");
+
     }
 }

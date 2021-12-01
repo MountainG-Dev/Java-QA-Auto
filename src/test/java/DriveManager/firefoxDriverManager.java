@@ -2,7 +2,7 @@ package DriveManager;
 
 import org.openqa.selenium.firefox.FirefoxDriver;
 
-public class firefoxDriverManager extends DriverManager {
+public class firefoxDriverManager extends driverManager {
 
     @Override
     public void createDriver() {

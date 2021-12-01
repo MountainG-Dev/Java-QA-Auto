@@ -16,8 +16,5 @@ import org.junit.runner.RunWith;
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"}
 )
 public class TestRunner {
-    @AfterClass
-    public static void cleanDriver(){
-        BasePage.closeDriver();
-    }
+
 }

@@ -1,20 +1,19 @@
 package DriveManager;
 
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
-
-public class chromeDriverManager extends DriverManager {
+public class chromeDriverManager extends driverManager {
 
     @Override
     public void createDriver(){
-        ChromeOptions chromeOptions = new ChromeOptions();
-        chromeOptions.addArguments("--incognito");
-        driver  = new ChromeDriver(chromeOptions);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--incognito");
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+        System.setProperty("webdriver.chrome.driver", System.getProperty("user.dir") + "/src/main/resources/Drivers/chromedriver.exe");
+        options.merge(capabilities);
+        driver = new ChromeDriver(options);
     }
 }
