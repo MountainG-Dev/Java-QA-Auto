@@ -2,5 +2,10 @@
 /shelf/
 /workspace.xml
 /test-output/
-/Drivers/main/resources/Drivers/
+/Html-Report/ExtentSpark.html
+/Json-Report/cucumber.json
+/Html-Report/cucumber.log
+/Pdf-Report/ExtenPdf.pdf
+/Screenshot/
+/drivers/
 /target/

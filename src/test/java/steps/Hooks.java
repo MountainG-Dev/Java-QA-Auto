@@ -11,7 +11,7 @@ public class Hooks extends BasePage{
         super(driver);
     }
 
-    @AfterStep
+    @After
     public void tearDown(Scenario scenario){
         if (scenario.isFailed()){
             final byte[] screenshotFail = ((TakesScreenshot)driver)
@@ -23,6 +23,5 @@ public class Hooks extends BasePage{
             scenario.attach(screenshotonPass, "image/png", "Pass");
         }
     }
-
 
 }

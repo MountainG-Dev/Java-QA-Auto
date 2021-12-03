@@ -1,13 +1,19 @@
 package steps;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import page.GooglePage;
 import io.cucumber.java.en.*;
 import org.junit.Assert;
+import util.Log4j;
+
+import java.util.logging.SocketHandler;
 
 @SuppressWarnings("ALL")
 public class GoogleSteps extends GooglePage {
 
     GooglePage google = new GooglePage();
+    static Logger logger = LogManager.getLogger(Log4j.class);
 
     @Given("un navegador web se abre en la página de Google")
     public void un_navegador_web_se_abre_en_la_página_de_google() throws Throwable {
@@ -41,7 +47,7 @@ public class GoogleSteps extends GooglePage {
     public void se_muestra_el_resultado_de(String frase) throws Throwable{
         System.out.println("Paso 004 - Se muestra el resultado");
         try{
-            driver.getPageSource().compareTo(frase);
+            Assert.assertTrue(google.firstResult().contains(frase));
         }catch (AssertionError e){
             throw new Exception("Falló al intentar mostrar el resultado frase");
         }
@@ -50,7 +56,7 @@ public class GoogleSteps extends GooglePage {
     public void los_resultados_relacionados(String relacionado) throws Throwable{
         System.out.println("Paso 005 - Los resultados relacionados");
         try{
-            driver.getPageSource().compareTo(relacionado);
+            Assert.assertTrue(google.firstResult().contains(relacionado));
         }catch (AssertionError e){
             throw new Exception("Falló al intentar mostrar el resultado relacionado");
         }
