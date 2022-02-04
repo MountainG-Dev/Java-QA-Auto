@@ -10,12 +10,12 @@ import java.io.IOException;
 
 @RunWith(Cucumber.class)
 @CucumberOptions(
-        features = "src/test/java/features",
+        features = "src/test/java/features/GoogleSearch.feature",
         glue = {"steps"},
         plugin = {"json:test-output/Json-Report/ExtentJson.json",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
         monochrome = true,
-        tags = "@FunctionalTest"
+        tags = "@GoogleFeature"
 )
 public class TestRunner {
     @AfterClass

@@ -10,7 +10,7 @@ import util.Log4j;
 import java.util.logging.SocketHandler;
 
 @SuppressWarnings("ALL")
-public class GoogleSteps extends GooglePage {
+public class GoogleSteps {
 
     GooglePage google = new GooglePage();
     static Logger logger = LogManager.getLogger(Log4j.class);

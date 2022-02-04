@@ -1,4 +1,4 @@
-@FunctionalTest
+@GoogleFeature
 Feature: Búsqueda en Google
 
 

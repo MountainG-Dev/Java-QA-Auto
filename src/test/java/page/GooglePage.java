@@ -1,9 +1,5 @@
 package page;
 
-import org.openqa.selenium.WebElement;
-
-import java.util.List;
-
 public class GooglePage extends BasePage{
 
 /*    @FindBy(how =How.XPATH, using = "//input[@title='Buscar']")
@@ -41,6 +37,5 @@ public class GooglePage extends BasePage{
     public boolean pageResult(){
         return elementIsDisplayed(resultsDisplayed);
     }
-
 
 }
