@@ -1,21 +1,28 @@
 package page;
 
-public class GooglePage extends BasePage{
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.How;
+import org.openqa.selenium.support.PageFactory;
+import util.genericFunctions;
 
-/*    @FindBy(how =How.XPATH, using = "//input[@title='Buscar']")
-        WebElement campoBuscar;
-    @FindBy(how =How.XPATH, using = "//div[@class='SDkEP']")
-        WebElement btnBuscar;
-    @FindBy(how =How.XPATH, using = "//title[normalize-space()='Google']")
-        WebElement tituloHomePage;*/
+import static java.nio.file.Files.write;
 
-    private final String searchButton = "//body/div[1]/div[3]/form[1]/div[1]/div[1]/div[2]/div[2]/div[5]/center[1]/input[1]";
-    private final String searchTextField = "//body/div[1]/div[3]/form[1]/div[1]/div[1]/div[1]/div[1]/div[2]/input[1]";
-    private final String firstResults = "//div[@id='cnt']";
-    private final String resultsDisplayed = "//div[@id='cnt']";
+public class googlePage extends genericFunctions {
 
-    public GooglePage(){
-        super(driver);
+    @FindBy(how = How.XPATH, using = "//body/div[1]/div[3]/form[1]/div[1]/div[1]/div[2]/div[2]/div[5]/center[1]/input[1]")
+    WebElement searchButton;
+    @FindBy(how = How.XPATH, using = "//body/div[1]/div[3]/form[1]/div[1]/div[1]/div[1]/div[1]/div[2]/input[1]")
+    WebElement searchTextField;
+    @FindBy(how = How.XPATH, using = "//div[@id='cnt']")
+    WebElement firstResults;
+    @FindBy(how = How.XPATH, using = "//div[@id='cnt']")
+    WebElement resultsDisplayed;
+
+    public googlePage(WebDriver driver){
+        super();
+        PageFactory.initElements(driver, this);
     }
 
     public void navigateToGoogle(){
@@ -33,9 +40,7 @@ public class GooglePage extends BasePage{
     public String firstResult(){
         return textFromElement(firstResults);
     }
-
     public boolean pageResult(){
         return elementIsDisplayed(resultsDisplayed);
     }
-
 }

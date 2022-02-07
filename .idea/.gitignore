@@ -1,11 +1,3 @@
 # Default ignored files
 /shelf/
 /workspace.xml
-/test-output/
-/Html-Report/ExtentSpark.html
-/Json-Report/cucumber.json
-/Html-Report/cucumber.log
-/Pdf-Report/ExtenPdf.pdf
-/Screenshot/
-/drivers/
-/target/

@@ -1,6 +1,6 @@
 package runner;
 
-import page.BasePage;
+import driver.manager.baseFlowDriver;
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
 import org.junit.AfterClass;
@@ -14,14 +14,14 @@ import java.io.IOException;
         glue = {"steps"},
         plugin = {"json:test-output/Json-Report/ExtentJson.json",
                 "com.aventstack.extentreports.cucumber.adapter.ExtentCucumberAdapter:"},
-        monochrome = true,
         tags = "@GoogleFeature"
+        //monochrome = true,
 )
-public class TestRunner {
+public class testRunner extends baseFlowDriver {
     @AfterClass
-    public static void cleanDriver() throws IOException {
-        BasePage.closeDriver();
-        // ** Limpia la instancia de WebDriver a nivel S.O. **
-        Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
+    public static void writeExtentReport() throws IOException {
+       // ** Limpia la instancia de WebDriver a nivel S.O. **
+       Runtime.getRuntime().exec("taskkill /F /IM chromedriver.exe /T");
+       driver.quit();
     }
 }
